@@ -267,12 +267,14 @@ GEAR_API size_t mbs_to_utf8_ptr(const char *str, size_t len, char **pstr);
  * simple reflection c version realization
  */
 typedef void (*void_fn)(void);
+
+/* Reflection section markers used by REFLECT_CALL macro */
 struct reflect {
     void_fn fn;
     const char* name;
 };
-struct reflect __start_reflect;
-struct reflect __stop_reflect;
+extern struct reflect __start_reflect;
+extern struct reflect __stop_reflect;
 
 #define REFLECT_DEF(x) __attribute__((section("reflect"), aligned(sizeof(void*)))) \
             struct reflect __##x = {(void_fn)x, #x};
